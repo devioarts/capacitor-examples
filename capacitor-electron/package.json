@@ -37,7 +37,6 @@
     "copy": "npx cap copy",
     "copy-inline": "npx cap copy --inline",
     "sync": "npx cap sync",
-
     "open-ios": "npx cap open ios",
     "open-android": "npx cap open android",
     "electron:build": "esbuild electron/main.ts --bundle --platform=node --external:electron --outfile=electron/main.cjs && esbuild electron/preload.cjs --bundle --platform=node --external:electrons",
@@ -69,6 +68,7 @@
     "concurrently": "^9.2.1",
     "electron": "^37.4.0",
     "electron-builder": "^26.0.12",
+    "esbuild": "^0.25.9",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
+// uncomment to use local files
+// import * as url from 'url';
 
 import express from 'express';
 import type { AddressInfo } from 'net';
@@ -36,10 +38,33 @@ function createWindow() {
 	if (isDev) {
 		win.loadURL('http://localhost:6001');
 	} else {
+		/*
+		 * Only one of the two sections below can be uncommented at a time
+		 * Uncomment the section you want to use and comment the other
+		 */
+
+		// SECTION 1
+		/*
+		 * Start a local HTTP server to serve the production build
+		 * COMMENT THIS TO USE LOCAL FILES
+		 */
 		const DIST_DIR = path.join(__dirname, '../dist');
 		startLocalHttp(DIST_DIR).then((port) => {
 			win.loadURL(`http://localhost:${port}/index.html`);
 		});
+		// SECTION 2
+		/*
+		 * Work with local files
+		 */
+		/* UNCOMMENT THIS TO USE LOCAL FILES
+		win.loadURL(
+			url.format({
+				pathname: path.join(__dirname, '../dist/index.html'),
+				protocol: 'file:',
+				slashes: true,
+			})
+		);
+		*/
 	}
 	// Open the DevTools.
 	win.webContents.openDevTools();

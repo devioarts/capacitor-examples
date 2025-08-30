@@ -42,9 +42,13 @@ npx cap add ios --packagemanager SPM
 
 
 ## Instalation from scratch
+### Prepare the base project
 ```shell
+# create vite project (ReactJS + TypeScript) in current folder
 npm create vite@latest . -- --template react-ts
+# create dist folder, for compiled files
 mkdir dist
+# install capacitor
 npm i @capacitor/core
 npm i -D @capacitor/cli
 ```
@@ -57,7 +61,7 @@ npx cap init
 # add ios/android support
 npm i @capacitor/android @capacitor/ios
 # add electron support
-npm i -D electron electron-builder concurrently
+npm i -D electron esbuild electron-builder concurrently
 npm i -D @electron/rebuild @types/electron @types/node 
 # add express (for electron localserver)
 # not required if you want to use local path based
@@ -106,6 +110,7 @@ export default defineConfig({
 })
 ```
 ### tsconfig.json
+> Add compilerOptions section to tsconfig.json (https://www.typescriptlang.org/tsconfig)
 ```json
 {
   "files": [],
@@ -123,7 +128,10 @@ export default defineConfig({
 }
 ```
 
-### package.json scripts
+### package.json 
+#### scripts section
+> Changne all scripts section in package.json (or just add new scripts)
+
 ```json
 {
     "dev": "vite",
@@ -144,7 +152,8 @@ export default defineConfig({
     "electron:dist:lnx": "npm run build && npm run electron:build && electron-builder -l --x64"
   }
 ```
-### package.json electron-builder config
+#### electron-builder sections
+> Add the following sections to package.json (https://www.electron.build/configuration)
 ```json
 {
   "build": {
@@ -170,5 +179,36 @@ export default defineConfig({
     }
   },
   "main": "electron/main.cjs"
+}
+```
+
+### electron/main.ts
+> In createWindow function you can select if you want to use local path or http server
+#### http server (express)
+> Comment ***import * as url from 'url';*** in the top of the file to have no lint error
+```js
+if (isDev) {
+    win.loadURL('http://localhost:6001');
+} else {
+    const DIST_DIR = path.join(__dirname, '../dist');
+    startLocalHttp(DIST_DIR).then((port) => {
+        win.loadURL(`http://localhost:${port}/index.html`);
+    });
+}
+```
+#### local path
+> Uncomment ***import * as url from 'url';*** in the top of the file
+> and comment ***startLocalHttp*** function to have no lint error
+```js
+if (isDev) {
+    win.loadURL('http://localhost:6001');
+} else {
+    win.loadURL(
+        url.format({
+            pathname: path.join(__dirname, '../dist/index.html'),
+            protocol: 'file:',
+            slashes: true,
+        })
+    );
 }
 ```
