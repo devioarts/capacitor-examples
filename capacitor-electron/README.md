@@ -134,15 +134,17 @@ export default defineConfig({
 
 ```json
 {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "copy": "npx cap copy",
-    "copy-inline": "npx cap copy --inline",
-    "sync": "npx cap sync",
-    "open-ios": "npx cap open ios",
-    "open-android": "npx cap open android",
+  "scripts": {
+    "dev:start": "vite",
+    "dev:build": "tsc -b && vite build",
+    "dev:build:copy": "npm run dev:build && npx cap copy",
+    "dev:lint": "eslint .",
+    "dev:preview": "vite preview",
+    "cap:copy": "npx cap copy",
+    "cap:copy-inline": "npx cap copy --inline",
+    "cap:sync": "npx cap sync",
+    "cap:open-ios": "npx cap open ios",
+    "cap:open-android": "npx cap open android",
     "electron:build": "esbuild electron/main.ts --bundle --platform=node --external:electron --outfile=electron/main.cjs && esbuild electron/preload.cjs --bundle --platform=node --external:electrons",
     "electron:watch": "esbuild electron/main.ts --bundle --platform=node --external:electron --outfile=electron/main.cjs --watch",
     "electron:dev": "concurrently \"vite\" \"npm run electron:watch\" \"wait-on http://localhost:6001 && electron electron/main.cjs\"",
@@ -151,6 +153,7 @@ export default defineConfig({
     "electron:dist:mac": "npm run build && npm run electron:build && electron-builder -m --arm64",
     "electron:dist:lnx": "npm run build && npm run electron:build && electron-builder -l --x64"
   }
+}
 ```
 #### electron-builder sections
 > Add the following sections to package.json (https://www.electron.build/configuration)
