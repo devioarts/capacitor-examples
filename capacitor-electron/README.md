@@ -9,18 +9,20 @@ Sample project for React + TypeScript + Vite + Capacitor + Electron
 
 ## Instalation from GitHub
 
-### Download the repo folder
+### Download and extract the repo folder (Linux/Mac)
+> To folder capacitor-electron
 ```shell
-# download the repo folder (zip)
-curl -L -o repo.zip https://codeload.github.com/devioarts/capacitor-examples/zip/refs/heads/main
-# unzip the repo folder
-unzip -q repo.zip "capacitor-examples-main/capacitor-electron/*"
-# extract the folder
-mv capacitor-examples-main/capacitor-electron ./capacitor-electron
-# remove the repo folder and zip file
-rm -rf capacitor-examples-main repo.zip
-# go to the folder
+curl -L https://codeload.github.com/devioarts/capacitor-examples/tar.gz/refs/heads/main \
+| tar -xz --strip-components=1 capacitor-examples-main/capacitor-electron
 cd capacitor-electron
+```
+> To current folder
+```shell
+curl -L https://codeload.github.com/devioarts/capacitor-examples/tar.gz/refs/heads/main \
+| tar -xz --strip-components=2 capacitor-examples-main/capacitor-electron
+```
+### Create a dist folder and install dependencies
+```shell
 # create dist folder
 mkdir dist
 # install dependencies
@@ -38,8 +40,6 @@ npx cap add ios
 # if you want to use SPM
 npx cap add ios --packagemanager SPM
 ```
-
-
 
 ## Instalation from scratch
 ### Prepare the base project
