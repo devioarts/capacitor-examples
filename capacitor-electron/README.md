@@ -31,7 +31,7 @@ npm install
 ### Install iOS + Android
 ```shell
 # first build
-npm run build
+npm run dev:build
 # add android
 npx cap add android
 # add ios
