@@ -1,16 +1,58 @@
-# React + TypeScript + Vite
-base
+# React + TypeScript + Vite + Capacitor + Electron
+
+Sample project for React + TypeScript + Vite + Capacitor + Electron
+
+## Instalation
+
+- [From GitHub](#instalation-from-github)
+- [From Scratch](#instalation-from-scratch)
+
+## Instalation from GitHub
+
+### Download the repo folder
+```shell
+# download the repo folder (zip)
+curl -L -o repo.zip https://codeload.github.com/devioarts/capacitor-examples/zip/refs/heads/main
+# unzip the repo folder
+unzip -q repo.zip "capacitor-examples-main/capacitor-electron/*"
+# extract the folder
+mv capacitor-examples-main/capacitor-electron ./capacitor-electron
+# remove the repo folder and zip file
+rm -rf capacitor-examples-main repo.zip
+# go to the folder
+cd capacitor-electron
+# create dist folder
+mkdir dist
+# install dependencies
+npm install
+```
+### Install iOS + Android
+```shell
+# first build
+npm run build
+# add android
+npx cap add android
+# add ios
+# if you want to use Podfile
+npx cap add ios
+# if you want to use SPM
+npx cap add ios --packagemanager SPM
+```
+
+
+
+## Instalation from scratch
 ```shell
 npm create vite@latest . -- --template react-ts
 mkdir dist
 npm i @capacitor/core
 npm i -D @capacitor/cli
 ```
-Initiate capacitor
+### Initiate capacitor
 ```shell
 npx cap init
 ```
-add ios/android
+### Add iOS/Android/Electron support
 ```shell
 # add ios/android support
 npm i @capacitor/android @capacitor/ios
@@ -32,10 +74,21 @@ npx cap add ios
 npx cap add ios --packagemanager SPM
 ```
 
+## Configuration
+
 ### vite.config.ts
+> I'm using port **6001** for my examples
+> if you want to use different port, 
+> you need to change the port in 
+>- electron/main.ts at this line ***win.loadURL('http://localhost:6001');***
+>- package.json in script ***electron:dev***
+>- vite.config.ts in server section ***port: 6001,***
+>
 ```js
 import path from "path"
-// ...
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
 // https://vite.dev/config/
 export default defineConfig({
     base: './',
@@ -118,76 +171,4 @@ export default defineConfig({
   },
   "main": "electron/main.cjs"
 }
-```
-
-
-
-
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
