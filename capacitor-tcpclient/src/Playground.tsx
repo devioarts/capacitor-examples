@@ -56,7 +56,7 @@ export const TcpPlayground: React.FC = () => {
 
 	const onData = (data: any) => {
 		const a: number[] = data?.data ?? [];
-		log.info(`listener`,`tcpData <- ${a.length} bytes`, a.slice(0, 64));
+		log.info(`listener`,`tcpData <- ${a.length} bytes`, a.slice(0, 13));
 	};
 	const onDisconnect = (ev: any) => {
 		log.warn(`listener`,`tcpDisconnect: ${ev?.reason ?? "?"} ${ev?.error ?? ""}`);
