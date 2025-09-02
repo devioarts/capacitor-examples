@@ -27,11 +27,14 @@ curl -L https://codeload.github.com/devioarts/capacitor-examples/tar.gz/refs/hea
 mkdir dist
 # install dependencies
 npm install
-```
-### Install iOS + Android
-```shell
 # first build
 npm run dev:build
+```
+> In capacitor.config.json you can change appId and appName
+
+
+### Install iOS + Android
+```shell
 # add android
 npx cap add android
 # add ios
@@ -77,6 +80,8 @@ npx cap add ios
 # if you want to use SPM
 npx cap add ios --packagemanager SPM
 ```
+> Download folder **electron** from this repo and copy to your projects root folder
+
 
 ## Configuration
 
