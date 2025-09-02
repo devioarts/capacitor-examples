@@ -36,6 +36,7 @@ export const TcpPlayground: React.FC = () => {
 	const [chunkSize, setChunkSize] = React.useState(4096);
 	const [readerTimeout, setReaderTimeout] = React.useState(1000);
 	const [reading, setReading] = React.useState(false);
+	const [listenings, setListenings] = useState<boolean>(false);
 
 	// Write
 	const [writeMode, setWriteMode] = React.useState<"text" | "hex" | "array">("text");
@@ -65,10 +66,25 @@ export const TcpPlayground: React.FC = () => {
 
 
 	const startListening = async () => {
+		if (listenings) {
+			log.warn(`client`,"startListening - already listening, ignoring");
+			return;
+		}
 		const r1 = await TCPClient.addListener("tcpData", onData);
 		log.info(`client`,"startListening(tcpData)", r1);
 		const r2 = await TCPClient.addListener("tcpDisconnect", onDisconnect);
 		log.info(`client`,"startListening(tcpDisconnect)", r2);
+		setListenings(true);
+	};
+
+	const stopListening = async () => {
+		if (!listenings) {
+			log.warn(`client`,"stopListening - not listening, ignoring");
+			return;
+		}
+		const r = await TCPClient.removeAllListeners();
+		log.info(`client`,"stopListening()", r);
+		setListenings(false);
 	};
 
 
@@ -173,7 +189,8 @@ export const TcpPlayground: React.FC = () => {
 					</div>
 					<hr />
 					<div className="flex flex-wrap gap-2">
-						<Button type={"green"} onClick={startListening}>Listen</Button>
+						<Button type={"green"} onClick={startListening} disabled={listenings}>Start listen</Button>
+						<Button type={"red"} onClick={stopListening} disabled={!listenings}>Stop listen</Button>
 						<Button type={"green"} onClick={doConnect}  disabled={connected}>Connect</Button>
 						<Button type={"red"} onClick={doDisconnect}  disabled={!connected} >Disconnect</Button>
 						<Button type={"neutral"} onClick={doStatus} >Status</Button>
