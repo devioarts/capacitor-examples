@@ -6,10 +6,12 @@ import * as path from 'path';
 import express from 'express';
 import type { AddressInfo } from 'net';
 // THIS IS IMPORTANT FOR PLUGING!
-import {registerMdnsIpc} from "@devioarts/capacitor-mdns/electron/mdns";
+import {mDNS} from "@devioarts/capacitor-mdns/electron/mdns";
 
 
 const isDev = !app.isPackaged;
+
+let mdns: mDNS | null = null;
 
 
 /*
@@ -38,6 +40,8 @@ function createWindow() {
 			preload: path.join(__dirname, 'preload.cjs'),
 			sandbox: false,
 		},
+		width: 1024,
+		height: 768
 	});
 
 
@@ -80,7 +84,9 @@ function createWindow() {
 app.whenReady().then(() => {
 	createWindow();
 	// THIS LINE IS IMPORTANT FOR PLUGIN!
-	registerMdnsIpc();
+	mdns = new mDNS();
+	mdns.attachOnReady();
+
 });
 
 app.on('before-quit', async () => {

@@ -1,13 +1,13 @@
 {
   "name": "capacitor-electron",
-  "description": "Capacitor Electron Example App",
+  "description": "Capacitor Example App - mDNS",
   "author": "DevIOArts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "build": {
-    "appId": "com.devioarts.myelectronapp",
-    "productName": "My Electron App",
+    "appId": "com.devioarts.example.mdns",
+    "productName": "cap-mdns",
     "directories": {
       "buildResources": "public",
       "output": "release"
@@ -52,10 +52,12 @@
     "@capacitor/core": "^7.4.3",
     "@capacitor/ios": "^7.4.3",
     "@devioarts/capacitor-mdns": "file:../../capacitor-mdns",
+    "@tailwindcss/vite": "^4.1.12",
     "bonjour-service": "^1.3.0",
     "express": "^5.1.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
     "@capacitor/cli": "^7.4.3",
