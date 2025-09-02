@@ -21,11 +21,11 @@ curl -L https://codeload.github.com/devioarts/capacitor-examples/tar.gz/refs/hea
 mkdir dist
 # install dependencies
 npm install
+# first build
+npm run dev:build
 ```
 ### Install iOS + Android
 ```shell
-# first build
-npm run dev:build
 # add android
 npx cap add android
 # add ios
@@ -68,6 +68,11 @@ npm run cap:open-android
 ```
 
 ```shell
-npm run cap:open-android
+npm run cap:open-ios
+```
+
+## Electron
+```shell
+npm run electron:dev
 ```
 
