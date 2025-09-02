@@ -21,11 +21,11 @@ curl -L https://codeload.github.com/devioarts/capacitor-examples/tar.gz/refs/hea
 mkdir dist
 # install dependencies
 npm install
+# first build
+npm run dev:build
 ```
 ### Install iOS + Android
 ```shell
-# first build
-npm run dev:build
 # add android
 npx cap add android
 # add ios
@@ -39,11 +39,10 @@ npx cap add ios --packagemanager SPM
 #### /android/app/src/main/AndroidManifest.xml
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<!-- Android 12+ -->
-<uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<application android:usesCleartextTraffic="true"></application>
+```
+
+```shell
+npm run cap:open-android
 ```
 
 ## iOS
@@ -60,4 +59,14 @@ npx cap add ios --packagemanager SPM
 <array>
     <string>_http._tcp</string>
 </array>
+```
+
+```shell
+npm run cap:open-ios
+```
+
+## Electron
+
+```shell
+npm run electron:dev
 ```
