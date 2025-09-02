@@ -1,6 +1,6 @@
 import React from "react";
 import { LoggerProvider, LoggerSinkSwitch, LogViewer } from "./components/Logger.tsx";
-import { TcpPlayground } from "./Playground.tsx";
+import { Playground } from "./Playground.tsx";
 
 export default function App() {
 	return (
@@ -9,7 +9,7 @@ export default function App() {
 				<Header title={"Playground mDNS"}><LoggerSinkSwitch /></Header>
 				<main className=" mx-auto px-4 py-6 space-y-6">
 					<div className={ "grid grid-cols-1 md:grid-cols-2 gap-6"}>
-						<TcpPlayground />
+						<Playground />
 						<LogViewer />
 					</div>
 					<Footer />

@@ -7,11 +7,11 @@ import express from 'express';
 import type { AddressInfo } from 'net';
 // THIS IS IMPORTANT FOR PLUGING!
 import {mDNS} from "@devioarts/capacitor-mdns/electron/mdns";
-
+const mdns = new mDNS();
 
 const isDev = !app.isPackaged;
 
-let mdns: mDNS | null = null;
+
 
 
 /*
@@ -76,21 +76,19 @@ function createWindow() {
 		);
 		*/
 	}
-	// Open the DevTools.
-	win.webContents.openDevTools();
 
 }
 
 app.whenReady().then(() => {
 	createWindow();
 	// THIS LINE IS IMPORTANT FOR PLUGIN!
-	mdns = new mDNS();
-	mdns.attachOnReady();
+	mdns.init();
 
 });
 
 app.on('before-quit', async () => {
 	// events to be handled before quitting the app
+	mdns.destroy();
 })
 
 app.on('window-all-closed', () => {

@@ -5,7 +5,7 @@ import { Button } from "./components/Button.tsx";
 import { Input, Label } from "./components/Input.tsx";
 import {TabButton} from "./components/TabButton.tsx";
 
-export const TcpPlayground: React.FC = () => {
+export const Playground: React.FC = () => {
 	/*
 	 * Base
 	 */
@@ -28,13 +28,6 @@ export const TcpPlayground: React.FC = () => {
 	const [discTimeout, setDiscTimeout] = useState<number>(3000);
 	const [discUseNW, setDiscUseNW] = useState<boolean>(true);
 
-
-	// Connection
-	//<editor-fold desc="Connection">
-
-
-	//</editor-fold>
-
 	/*
 	 * Testing functions
 	 */
@@ -43,7 +36,6 @@ export const TcpPlayground: React.FC = () => {
 		log.info("server","Starting broadcast");
 		try {
 			const res = await mDNS.startBroadcast({
-				domain: domain,
 				type: type,
 				name: serviceId,
 				port: port,
@@ -128,7 +120,7 @@ export const TcpPlayground: React.FC = () => {
 						<Label label="Type"><Input type="text" value={discType} onChange={e => setDiscType(e.target.value)} /></Label>
 						<label className="text-sm flex items-center gap-2">
 							<input type="checkbox" checked={discUseNW} onChange={e => setDiscUseNW(e.target.checked)} />
-							Use NW (for iOS only)
+							Use NW (iOS)
 						</label>
 					</div>
 					<hr />
