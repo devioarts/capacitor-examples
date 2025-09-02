@@ -220,3 +220,5 @@ if (isDev) {
     );
 }
 ```
+
+># <center>Run and have fun! :-)</center>
