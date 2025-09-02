@@ -6,12 +6,11 @@ import * as path from 'path';
 import express from 'express';
 import type { AddressInfo } from 'net';
 // THIS IS IMPORTANT FOR PLUGING!
-import {TCPClient} from "@devioarts/capacitor-tcpclient/electron/tcpclient";
+import {registerMdnsIpc} from "@devioarts/capacitor-mdns/electron/mdns";
 
 
 const isDev = !app.isPackaged;
-// THIS IS IMPORTANT FOR PLUGING!
-let tcpClient: TCPClient | null = null;
+
 
 /*
  * Function to start a local HTTP server using express
@@ -32,16 +31,15 @@ async function startLocalHttp(distDir: string): Promise<number> {
 function createWindow() {
 	const win = new BrowserWindow({
 		fullscreen: false,
-		frame: true,
-		autoHideMenuBar: false,
+		frame: true, // show close/min/max buttons
+		autoHideMenuBar: true,
 		webPreferences: {
 			contextIsolation: true,
 			preload: path.join(__dirname, 'preload.cjs'),
 			sandbox: false,
 		},
 	});
-	// THIS IS IMPORTANT FOR PLUGIN!
-	tcpClient = new TCPClient(win);
+
 
 	if (isDev) {
 		win.loadURL('http://localhost:6001');
@@ -81,6 +79,8 @@ function createWindow() {
 
 app.whenReady().then(() => {
 	createWindow();
+	// THIS LINE IS IMPORTANT FOR PLUGIN!
+	registerMdnsIpc();
 });
 
 app.on('before-quit', async () => {

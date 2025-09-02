@@ -1,13 +1,13 @@
 {
-  "name": "capacitor-tcpclient",
-  "description": "Capacitor Example App - TCP Client",
+  "name": "capacitor-electron",
+  "description": "Capacitor Electron Example App",
   "author": "DevIOArts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "build": {
-    "appId": "com.devioarts.example.tcpclient",
-    "productName": "cap-tcpclient",
+    "appId": "com.devioarts.myelectronapp",
+    "productName": "My Electron App",
     "directories": {
       "buildResources": "public",
       "output": "release"
@@ -51,8 +51,9 @@
     "@capacitor/android": "^7.4.3",
     "@capacitor/core": "^7.4.3",
     "@capacitor/ios": "^7.4.3",
-    "@devioarts/capacitor-tcpclient": "file:../../capacitor-tcpclient",
+    "@devioarts/capacitor-rpc": "file:../../capacitor-rpc",
     "@tailwindcss/vite": "^4.1.12",
+    "bonjour-service": "^1.3.0",
     "express": "^5.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
